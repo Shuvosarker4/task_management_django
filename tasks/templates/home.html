@@ -10,5 +10,14 @@
 </head>
 <body>
     <h1 class="text-2xl bg-green-400 font-medium">This is Home Route</h1>
+    <h2>
+        <ul>
+            {% for task in tasks %}
+                <li>{{task.title}} {{task.status}}</li>
+                <li>{{task.description}}</li>
+                <li>{{task.due_date}}</li>
+            {% endfor %}
+        </ul>
+    </h2>
 </body>
 </html>
