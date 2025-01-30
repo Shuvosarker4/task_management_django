@@ -1,5 +1,5 @@
 from django import forms
-from tasks.models import Task,TaskDetails
+from tasks.models import Task,TaskDetail
 
 class StyleFormMixin:
     default_classes ="border-2 my-2 w-full p-3 rounded-lg shadow-sm "
@@ -41,5 +41,5 @@ class TaskModelForm(StyleFormMixin, forms.ModelForm):
 
 class TaskDetailsForm(StyleFormMixin,forms.ModelForm):
     class Meta:
-        model = TaskDetails
+        model = TaskDetail
         fields = ['priority','notes']

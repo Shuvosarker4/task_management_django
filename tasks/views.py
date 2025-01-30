@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from tasks.models import Task
+from tasks.models import Task,TaskDetail
 from tasks.forms import TaskModelForm
 from django.contrib import messages
 # Create your views here.
 def home(request):
-    tasks = Task.objects.all()
+    tasks = TaskDetail.objects.exclude(priority="L")
+    first_task = Task.objects.first()
     return render(request,"home.html",{"tasks":tasks})
 
 def manager_dashboard(request):
