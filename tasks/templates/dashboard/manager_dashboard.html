@@ -15,114 +15,44 @@
         <h1 class="text-slate-500 font-bold">CREATED AT</h1>
       </div>
 
+      {% for task in tasks %}
+
       <div
         class="p-4 my-2 bg-white flex justify-around items-center rounded-lg"
       >
         <div class="flex justify-between items-center gap-1">
           <p class="h-2 w-2 rounded-full bg-green-700"></p>
-          <h1 class="font-medium">Test Low Task</h1>
+          <h1 class="font-medium">{{task.title}}</h1>
+          <a href="{% url 'update-task' task.id %} ">
+            <button class="bg-green-500 py-2 px-4 rounded text-white">Edit</button>
+          </a>
+          <form action="{% url 'delete-task' task.id %}" method="POST">
+            {% csrf_token %}
+            <button type='submit' class="bg-red-500 py-2 px-4 rounded text-white">Delete</button>
+          </form>
         </div>
         <div class="flex items-center gap-1">
           <h1
             class="px-4 py-1 rounded-full font-bold bg-purple-100 text-slate-500"
           >
-            Low
+            {{task.details.get_priority_display}}
           </h1>
         </div>
         <div class="flex items-center -space-x-2">
-          <button
+          {% for emp in task.assigned_to.all %}
+            <button
             class="w-10 h-10 font-bold rounded-full border-2 border-white bg-blue-500 text-white"
           >
-            CA
+            {{emp.name|slice:':1'}}
           </button>
-          <button
-            class="w-10 h-10 font-bold rounded-full border-2 border-white bg-blue-500 text-white"
-          >
-            JS
-          </button>
-          <button
-            class="w-10 h-10 font-bold rounded-full border-2 border-white bg-blue-500 text-white"
-          >
-            B
-          </button>
+          {% endfor %}
+          
         </div>
         <div class="flex items-center gap-1">
-          <h1 class="text-slate-500">9 months ago</h1>
+          <h1 class="text-slate-500">{{task.created_at|timesince}}</h1>
         </div>
       </div>
-      <div
-        class="p-4 my-2 bg-white flex justify-around items-center rounded-lg"
-      >
-        <div class="flex justify-between items-center gap-1">
-          <p class="h-2 w-2 rounded-full bg-yellow-500"></p>
-          <h1 class="font-medium">Test Task</h1>
-        </div>
-        <div class="flex justify-center items-center gap-1">
-          <h1
-            class="px-4 py-1 rounded-full font-bold bg-purple-100 text-purple-600"
-          >
-            Normal
-          </h1>
-        </div>
-        <div class="flex items-center -space-x-2">
-          <button
-            class="w-10 h-10 font-bold rounded-full border-2 border-white bg-blue-500 text-white"
-          >
-            AJ
-          </button>
-          <button
-            class="w-10 h-10 font-bold rounded-full border-2 border-white bg-blue-500 text-white"
-          >
-            EV
-          </button>
-          <button
-            class="w-10 h-10 font-bold rounded-full border-2 border-white bg-blue-500 text-white"
-          >
-            B
-          </button>
-        </div>
-        <div class="flex items-center gap-1">
-          <h1 class="text-slate-500">9 months ago</h1>
-        </div>
-      </div>
-      <div
-        class="p-4 my-2 bg-white flex justify-around items-center rounded-lg"
-      >
-        <div class="flex justify-between items-center gap-1">
-          <p class="h-2 w-2 rounded-full bg-red-700"></p>
-          <h1 class="font-medium">Test Task</h1>
-        </div>
-        <div class="flex items-center justify-center gap-1">
-          <h1 class="px-4 py-1 rounded-full font-bold bg-red-100 text-red-500">
-            High
-          </h1>
-        </div>
-        <div class="flex items-center -space-x-2">
-          <button
-            class="w-10 h-10 font-bold rounded-full border-2 border-white bg-blue-500 text-white"
-          >
-            CA
-          </button>
-          <button
-            class="w-10 h-10 font-bold rounded-full border-2 border-white bg-blue-500 text-white"
-          >
-            JS
-          </button>
-          <button
-            class="w-10 h-10 font-bold rounded-full border-2 border-white bg-blue-500 text-white"
-          >
-            AJ
-          </button>
-          <button
-            class="w-10 h-10 font-bold rounded-full border-2 border-white bg-blue-500 text-white"
-          >
-            B
-          </button>
-        </div>
-        <div class="flex items-center gap-1">
-          <h1 class="text-slate-500">9 months ago</h1>
-        </div>
-      </div>
-    </div>
+
+     {% endfor %}
 
 {% endblock tasks %}
